@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <ctype.h>
+#include <stdarg.h>
+#include "list.h"
+
+void showMovies(Item item);
+
+
+int main(int argc, char *argv[]) {
+    List movies;
+    Item item;
+    initializeList(&movies);
+    if (listIsFull(&movies)) {
+        fprintf(stderr, "no memory available !\n");
+        exit(1);
+    }
+    puts("enter first movie title:");
+    while (gets(item.title) != NULL && item.title[0] != '\0') {
+        puts("enter your rating <0-10>:");
+        scanf("%d", &item.rating);
+        while (getchar() != '\n') {
+            continue;
+        }
+        if (addItem(item, &movies) == false) {
+            fprintf(stderr, "problem allocating memory\n");
+            break;
+        }
+        if (listIsFull(&movies)) {
+            puts("the list is now full.");
+            break;
+        }
+        puts("enter next movie title (empty line to quit):");
+    }
+
+    if (listIsEmpty(&movies)) {
+        printf("no data entered!");
+    } else {
+        printf("here is the movie list:\n");
+        traverse(&movies, showMovies);
+    }
+    printf("your entered %d movies.\n", listItemCount(&movies));
+
+    clear(&movies);
+    printf("byte!\n");
+
+    return EXIT_SUCCESS;
+
+}
+
+void showMovies(Item item) {
+    printf("movie:%s rating:%d\n", item.title, item.rating);
+}
+
+
+
+
+
+

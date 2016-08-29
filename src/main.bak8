@@ -1,0 +1,41 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 40
+#define MAXLEN 20
+
+int main(int argc, char *argv[]) {
+    /*
+
+    FILE *fp;
+    char words[MAX];
+    if ((fp = fopen("words", "a+")) == NULL) {
+        fprintf(stdout, "can't open words file.\n");
+        exit(1);
+    }
+    puts("enter words to add to the file ;press the enter");
+    puts("key at the beginning of a line to teminate.");
+    while (gets(words) != NULL && words[0] != '\0') {
+        fprintf(fp, "%s", words);
+    }
+    puts("file contents:");
+    rewind(fp);
+    while (fscanf(fp, "%s", words) == 1) {
+        puts(words);
+    }
+    if (fclose(fp) != 0) {
+        fprintf(stderr, "error closing file.\n");
+    }
+     */
+
+    char line[MAXLEN];
+    while (fgets(line, MAXLEN, stdin) != NULL && line[0] != '\0') {
+        fputs(line, stdout);
+    }
+
+    return EXIT_SUCCESS;
+
+}
+

@@ -1,0 +1,4 @@
+typedef和#define不同的地方
+1、与#define不同，typedef给出的符号类型仅限于类型，而不是对值。
+2、typedef的解释由编译器，而不是预处理器执行。
+3、虽然它范围有限，但在其受限范围内，typedef比#define更灵活。

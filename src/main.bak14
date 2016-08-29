@@ -1,0 +1,34 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <ctype.h>
+
+#define  JUST_CHECKING
+#define LIMIT 4
+
+#pragma c9x on
+
+inline double square(double);
+
+int main(int argc, char *argv[]) {
+
+    int i;
+    int total;
+    for (int i = 1; i < LIMIT; i++) {
+        total += 2 * i * i + 1;
+#ifdef JUST_CHECKING
+        printf("i=%d,runing total=%d\n", i, total);
+#endif
+
+    }
+    printf("grand total =%d\n", total);
+
+    return EXIT_SUCCESS;
+
+}
+
+
+
+

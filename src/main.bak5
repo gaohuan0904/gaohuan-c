@@ -1,0 +1,90 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+/*
+#define SIZE 80
+*/
+/*
+#define  SIZE 30
+#define BUGSIZE 13
+*/
+/*
+//#define ANSWER "GRANT"
+#define  MAX 40
+const static char *ANSWER = "GRANT";
+*/
+/*
+#define LIM 100
+#define STOP "quit"
+#define SIZE 81
+*/
+#define WORDS "beast"
+#define SIZE 40
+
+int main(void) {
+    /*
+    char flower[SIZE];
+    char addon[] = "s smell like old shoes";
+    puts("what is your favorite flower");
+    gets(flower);
+    strcat(flower, addon);
+    puts(flower);
+    puts(addon);
+     */
+
+    /*
+    char flower[SIZE];
+    char addon[] = "s smell like ole shoes.";
+    char bug[BUGSIZE];
+    int available;
+    puts("what is your favorite flowers?");
+    gets(flower);
+    if ((strlen(addon) + strlen(flower) + 1) <= SIZE) {
+        strcat(flower, addon);
+    }
+    puts(flower);
+    puts("what is your favorite bug?");
+    gets(bug);
+    available = BUGSIZE - strlen(bug) - 1;
+    strncat(bug, addon, available);
+    puts(bug);
+    */
+    /*
+    char try[MAX];
+    puts("who is buried in grant's tomb");
+    gets(try);
+    while (strcmp(try, ANSWER) != 0) {
+        puts("no,that's wrong");
+        gets(try);
+    }
+    puts("that's right");
+    */
+    /*
+    char input[LIM][SIZE];
+    int ct = 0;
+    printf("enter up to %d lines( type quit to quit):\n", LIM);
+    while (ct < LIM && gets(input[ct]) != NULL && strcmp(input[ct], STOP)) {
+        ct++;
+    }
+    printf("%d strings entered\n", ct);
+
+    */
+    /*
+    char *orig = WORDS;
+    char copy[SIZE] = "Be the best that you can be";
+    char *ps;
+    puts(orig);
+    puts(copy);
+    ps = strcpy(copy + 7, orig);
+    puts(copy);
+    puts(ps);
+    */
+    int i,time;
+    if()
+
+
+    return EXIT_SUCCESS;
+
+}

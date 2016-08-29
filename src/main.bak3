@@ -1,0 +1,68 @@
+
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 81
+#define DEF "i am a #defined string"
+
+void put1(const char *string) {
+    while (*string) {
+        putchar(*(string++));//++比*优先级高
+    }
+    putchar('\n');
+}
+
+int put2(const char *string) {
+    int count = 0;
+    while (*string) {
+        putchar(*string++);
+        count++;
+    }
+    putchar('\n');
+    return count;
+}
+
+int main(void) {
+
+    /*
+    char name[MAX];
+    gets(name);
+    printf("nice name,%s\n", name);
+
+    char *ptr;
+    printf("hi what's your name?\n");
+    ptr = gets(name);
+    printf("%s? ah! %s\n", name, ptr);
+    */
+    /*
+    char name[MAX];
+    char *ptr;
+    ptr = fgets(name, MAX, stdin);
+    printf(":%s? ah! %s\n", name, ptr);
+     */
+    /*
+    char name1[11], name2[11];
+    int count;
+    count = scanf("%5s %10s", name1, name2);
+    printf("i read the %d names %s and %s.\n", count, name1, name2);
+     */
+    /*
+    char str1[80] = "an array was initalized to me";
+    const char *str2 = "a pointer was initialized to me";
+    puts(" to puts");
+    puts(DEF);
+    puts(str1);
+    puts(str2);
+    puts(&str1[5]);
+    puts(str2 + 4);
+    */
+    /*
+    put1("if i'd as much money");
+    put1("as i could spend \n");
+    printf("i count %d character .\n", put2("i never would cry"));
+    */
+
+    return EXIT_SUCCESS;
+
+
+}

@@ -1,0 +1,537 @@
+#include <stdio.h>
+#include <math.h>
+#include <string.h>
+#include <time.h>
+#include <float.h>
+#include <errno.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <ctype.h>
+#include "t_2.h"
+#include "t_3.h"
+
+
+/*
+ * #define vs typedef
+ *1、typedef只能为类型定义别名 #define 能为类型和常量定义别名
+ * 2、typedef是有编译器执行解释，#define是由预编译器进行处理。
+ *
+ * ? so 编译器和预编译器什么区别??
+ * */
+
+/* 给类型定义新的名字*/
+typedef unsigned char Byte;
+
+/*给新定义的结构体定义别名*/
+typedef struct Books {
+    char title[50];
+} Boo;
+
+
+double getAverage(int *arr, int size);
+
+/*
+ * 结构体
+ */
+struct Book {
+    char title[50];
+    char author[50];
+    char subject[100];
+    int bookId;
+};
+
+/*
+ * 位域
+ */
+struct {
+    unsigned int a:1;
+    unsigned int b:3;
+    unsigned int c:4;
+
+} bit, *pBit;
+/*
+ * 共用体：允许在相同的内存位置存储不同的数据类型，任何时候只有一个成员有值
+ * 共用体占用的内存应该存储共用体中最大的成员
+ */
+union Data {
+    int i;
+    float f;
+    char str[20];
+};
+
+void printBook(struct Book book);
+
+/*
+ * 可变参数使用
+ */
+double average(int num, ...) {
+    va_list vaList;
+    double sum = 0.0;
+    int i;
+    va_start(vaList, num);
+    for (int i = 0; i < num; ++i) {
+        sum += va_arg(vaList, int);
+    }
+    va_end(vaList);
+    return sum / num;
+
+}
+
+/**
+ * 由1,2,3,4组成的互不相同且无重复数
+ */
+void test1() {
+    int i, j, k;
+    for (int i = 1; i < 5; ++i) {
+        for (int j = 1; j < 5; ++j) {
+            for (int k = 1; k < 5; ++k) {
+                if (i != j && i != k && j != k) {
+                    printf("%d%d%d\n", i, j, k);
+                }
+            }
+        }
+
+    }
+}
+
+char getChoice(void);
+
+void count(void);
+
+char getFirst(void);
+
+int getInt(void);
+
+
+int main() {
+
+    /*
+     int var1;
+     char var2[10];
+     printf("var 变量地址%x\n", &var1);
+     printf("var 变量地址%x\n", &var2);
+
+     //指针为一个变量，其值是另一个变量的地址
+
+     int var = 20;
+     int *p;
+
+     p = &var;
+
+     printf("address of var variable:%x\n", &var);
+     printf("address stored in p variable:%x\n", p);
+     //使用指针访问值
+     printf("value of *p variable:%d\n", p);
+
+
+     int *ptr = NULL;
+
+     printf("ptr 的值是%x\n", ptr);
+
+     if (ptr) {
+         printf("ptr==true");
+     }
+     if (!ptr) {
+         printf("ptr!=true");
+     }
+     */
+
+    /*
+    //指针算数运算
+    const int MAX_LENGTH = 3;
+
+    int var[] = {10, 100, 200};
+    int i, *ptr;
+    ptr = var;//数组第一个元素的地址
+    i = 0;
+    //指针地址小于数组最后一个元素的地址
+    while (ptr <= &var[MAX_LENGTH - 1]) {
+        printf("address of var[%d]=%x\n", i, ptr);
+        printf("value of var[%d]=%d\n", i, *ptr);
+        ptr++;
+        i++;
+    }
+     */
+
+    /*
+    //指针数组
+    int var[] = {10, 100, 200};
+    const int MAX = 3;
+    int i, *ptr[MAX];
+    for (int i = 0; i < MAX; ++i) {
+        ptr[i] = &var[i];
+    }
+    for (int i = 0; i < MAX; ++i) {
+        printf("value of var[%d]=%d\n", i, *ptr[i]);
+    }
+    */
+
+    /*
+    const int MAX = 4;
+     //????? 指针字符数组
+    char *names[] = {
+            "zara ali",
+            "hina ali",
+            "nuha ali",
+            "sara ali"
+    };
+
+    int i = 0;
+    for (int i = 0; i < MAX; ++i) {
+        printf("value of [%d]=%s\n", i,names[i]);
+    }
+    */
+
+    /*
+    //指向指针的指针
+    int var;
+    int *ptr;
+    int **pptr;
+    var = 3000;
+
+    ptr = &var;
+    pptr = &ptr;
+    printf("value of var =%d\n", var);
+    printf("value of *ptr=%d\n", *ptr);
+    printf("value of **ptr=%d\n", **pptr);
+    */
+
+    /*
+    //传递指针给函数
+    unsigned long sec;
+    getSeconds(&sec);
+    printf("number of seconds %ld\n", sec);
+    */
+
+    /*
+    int balance[5] = {1000, 2, 13, 17, 50};
+    double avg;
+    avg = getAverage(balance, 5);
+    printf("average value is %f\n", avg);
+    */
+
+    /*
+    char str1[12] = "hello";
+    char str2[12] = "world";
+    char str3[12];
+
+    int len;
+    //复制
+    strcpy(str3, str1);
+    printf("strcpy:%s\n", str3);
+    //连接str1 str2
+    strcat(str1, str2);
+    printf("strcat:%s\n", str1);
+
+    len = strlen(str1);
+    printf("length:%d\n", len);
+    */
+
+    /*
+    struct Book book1;
+    struct Book book2;
+
+    //books1
+    strcpy(book1.title, "C programming");
+    strcpy(book1.author, "nuha ali");
+    strcpy(book1.subject, "C programming tutorial");
+    book1.bookId = 6495407;
+
+    strcpy(book2.title, "book2 title");
+    strcpy(book2.author, "book2 author");
+    strcpy(book2.subject, "book2 subject");
+    book2.bookId = 12341;
+
+    printBook(book1);
+    printBook(book2);
+
+    struct Book *ptrBook;
+    *ptrBook = book1;
+
+    */
+
+    /*
+    bit.a = 1;
+    bit.b = 7;
+    bit.c = 15;
+    printf("%d,%d,%d\n", bit.a, bit.b, bit.c);
+    pBit = &bit;
+    pBit->a = 0;
+    pBit->b &= 3;
+    pBit->c |= 1;
+    printf("%d,%d,%d\n", pBit->a, pBit->b, pBit->c);
+    */
+
+    /*
+    union Data data;
+    printf("memory size:%d\n", sizeof(data));
+    data.i = 10;
+    printf("data.i:%d\n", data.i);
+
+    data.f = 220.5;
+    printf("data.f:%f\n", data.f);
+
+    strcpy(data.str, "c progamming");
+    printf("data.str:%s\n", data.str);
+    */
+    /*
+    int c;
+    printf("enter a char:");
+    c = getchar();
+    printf("\nyou entered:");
+    putchar(c);
+    */
+    /*
+    char str[100];
+    printf("enter a value:");
+    gets(str);
+    printf("\nYou entered:");
+    puts(str);
+     */
+    /*
+    char str[100];
+    int i;
+    printf("ENTER a value:");
+    scanf("%s %d",str,&i);
+    printf("\nyou entered:%s %d",str,i);
+    */
+
+    /*
+    //文件读写
+    FILE *fp;
+    fp = fopen("text.txt", "w+");
+    fprintf(fp, "this is testing for fprintf...\n");
+    fputs("this is a testing for fputs....\n", fp);
+    fclose(fp);
+    */
+    /*
+    //错误、错误码
+    FILE *pf;
+    int errNum;
+    pf = fopen("unexist.txt", "rb");
+    if (pf == NULL) {
+        errNum = errno;
+    }
+    fprintf(stderr, "错误号：%d\n", errNum);
+    perror("通过perror输出错误");
+    fprintf(stderr, "打开文件错误:%s\n", strerror(errNum));
+     */
+
+    /*
+    int dividend = 20;
+    int divisor = 0;
+    int quotient;
+    if (divisor == 0) {
+        fprintf(stderr, "除数为0 退出运行....\n");
+//        exit(-1);
+        exit(EXIT_FAILURE);
+
+    }
+    quotient = dividend / divisor;
+    fprintf(stderr, "quotient 变量值为:%d\n", quotient);
+     */
+    /*
+    printf("average of 2,3,4,5=%f\n", average(4, 2, 3, 4, 5));
+    printf("average of 5,0,15=%f\n", average(3, 5, 10, 15));
+    */
+    /*
+    char name[100];
+    char *description;
+    strcpy(name, "zara ali");
+    //动态分配内存
+    description = malloc(200 * sizeof(char));
+    if (description == NULL) {
+        fprintf(stderr, "error- unable to allocate required memory");
+    } else {
+        strcpy(description, "zara ali a dps student in calss 10th");
+    }
+    description = realloc(description, 300 * sizeof(char));
+    if (description == NULL) {
+        fprintf(stderr, "error- unable to allocate required memory");
+    } else {
+        strcpy(description, "zara ali a dps student in calss 11th");
+    }
+
+    printf("name=%s\n", name);
+    printf("description:%s\n", description);
+
+    free(description);
+    */
+    /*
+   test1();
+    */
+    /*
+    float aboat = 3200.0;
+    double abet = 2.14e9;
+    long double dip = 5.32e-5;
+    printf("%f can be written %e\n", aboat, aboat);
+    printf("%f can be written %e\n", abet, abet);
+    printf("%Lf can be written %e\n", dip, dip);
+    */
+    /*
+    const int pages = 931;
+    printf("%d\n",pages);
+    printf("%2d\n",pages);
+    printf("%-10d\n",pages);
+    printf("%10d\n",pages);
+    */
+    /*
+    const double RENT = 3852.99;
+    printf("*%f*\n", RENT);
+    printf("*%e*\n", RENT);
+    printf("*%4.2f*\n", RENT);
+    printf("*%3.1f*\n", RENT);
+    printf("*%10.3f*\n", RENT);
+    printf("*%10.3e*\n", RENT);
+    printf("*%+4.2f*\n", RENT);
+    printf("*%010.2f*\n", RENT);
+    */
+    /*
+    const char *s = {"authen imitation"};
+    printf("/*%2s/\n", s);
+    printf("/*%24s/\n", s);
+    printf("/*%24.5s/\n", s);
+    printf("/*%-24.5s/\n", s);
+    */
+    /*
+    char ch;
+    int a_t = 0, e_t = 0, i_t = 0, o_t = 0, u_t = 0;
+
+
+    while ((ch = getchar()) != '#') {
+        ch = toupper(ch);
+        switch (ch) {
+            case 'A':
+                a_t++;
+                break;
+            case 'E':
+                e_t++;
+                break;
+            case 'I':
+                i_t++;
+                break;
+            case 'O':
+                o_t++;
+                break;
+            case 'U':
+                u_t++;
+                break;
+            default:
+                break;
+        }
+    }
+    printf("number of :    A    E    I    O    U \n");
+    printf("           %4d %4d %4d %4d %4d\n", a_t, e_t, i_t, o_t, u_t);
+    */
+
+    /*
+    int choice;
+    while ((choice = getChoice()) != 'q') {
+        choice = tolower(choice);
+        switch (choice) {
+            case 'a':
+                printf("buy low sell high.\n");
+                break;
+            case 'b':
+                putchar('\a');//ANSI
+                break;
+            case 'c':
+                count();
+                break;
+            default:
+                printf("Program error!\n");
+                break;
+        }
+    }
+     */
+
+    t_3_1();
+
+    exit(EXIT_SUCCESS);
+
+
+}
+
+void count(void) {
+    int n, i;
+    printf("count how far?enter an integer:\n");
+    n = getInt();
+    for (i = 1; i <= n; i++) {
+        printf("%d\n", i);
+    }
+    while (getchar() != '\n') {
+        continue;
+    }
+}
+
+char getChoice(void) {
+    int ch;
+    printf("enter the letter of your choice:\n");
+    printf("a.advice              b.bell\n");
+    printf("c.count               q.quit\n");
+    ch = getFirst();
+    while ((ch < 'a' || ch > 'c') && ch != 'q') {
+        printf("please respond with a,b,c,q.\n");
+        ch = getFirst();
+    }
+    return ch;
+}
+
+char getFirst(void) {
+    int ch;
+    ch = getchar();
+    while (getchar() != '\n') {
+        continue;
+    }
+    return ch;
+}
+
+int getInt(void) {
+    int input;
+    char ch;
+    while (scanf("%d", &input) != 1) {
+        while ((ch = getchar()) != '\n') {
+            putchar(ch);
+        }
+        printf(" is not an integer");
+    }
+    return input;
+
+}
+
+
+void printBook(struct Book book) {
+    printf("book2 title:%s\n", book.title);
+    printf("book2 author:%s\n", book.author);
+    printf("book2 subject:%s\n", book.subject);
+    printf("book2 bookId:%d\n", book.bookId);
+}
+
+
+//接受指针参数
+void getSeconds(unsigned long *par) {
+    *par = time(NULL);
+    return;
+}
+
+
+//接受数组作为参数
+double getAverage(int *arr, int size) {
+    int i, sum = 0;
+    double avg;
+
+    for (i = 0; i < size; ++i) {
+        sum += arr[i];
+    }
+
+    avg = (double) sum / size;
+
+    return avg;
+}
+
+
+
+
+

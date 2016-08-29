@@ -1,0 +1,74 @@
+/*
+ *  位操作
+ * 掩码： flags=flags & MASK
+ * 打开位：flags=flags | MASK
+ * 关闭位： flags=flags & ~MASK
+ * 转置位： flags=flags ^ MASK
+ *
+ */
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+
+char *itobstr(int n, char *ps);
+
+void showbstr(const char *str);
+
+int invert_end(int num, int bits);
+
+
+int main(void) {
+
+    char bin_str[8 * sizeof(int) + 1];
+    int number;
+    puts("enter integers and see them in binary");
+    puts("non-numeric input terminates program");
+    while (scanf("%d", &number) == 1) {
+        itobstr(number, bin_str);
+        printf("%d is \n", number);
+        showbstr(bin_str);
+        putchar('\n');
+        number = invert_end(number, 4);
+        putchar('\n');
+        printf("inverting the last 4 bits gives\n");
+        showbstr(itobstr(number, bin_str));
+        putchar('\n');
+
+    }
+
+    return EXIT_SUCCESS;
+
+}
+
+char *itobstr(int n, char *ps) {
+    int i;
+    static int size = 8 * sizeof(int);
+    for (int i = size - 1; i >= 0; i--, n >>= 1) {
+        ps[i] = (1 & n) + '0';
+    }
+    ps[size] = '\0';
+    return ps;
+}
+
+void showbstr(const char *str) {
+    int i = 0;
+    while (str[i]) {
+        putchar(str[i]);
+        if (++i % 4 == 0 && str[i]) {
+            putchar(' ');
+        }
+    }
+}
+
+
+int invert_end(int num, int n) {
+    int mask = 0;
+    int bitVal = 1;
+    while (n-- > 0) {
+        mask |= bitVal;
+        bitVal <<= 1;
+    }
+    return num ^ mask;
+}

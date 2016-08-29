@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <stdbool.h>
+#include <ctype.h>
+#include <stdarg.h>
+#include "queue.h"
+
+
+int main(int argc, char *argv[]) {
+    Queue line;
+    Item item;
+    char ch;
+    initializeQueue(&line);
+    puts("testing the queue interface .type a to addd a value:");
+    puts("type d to delete a vlaue ,and tepe q to quit.");
+    while ((ch = getchar()) != 'q') {
+        if (ch != 'a' && ch != 'd') {
+            continue;
+        }
+        if (ch == 'a') {
+            printf("integer to add:");
+            scanf("%d", &item);
+            if (!queueIsFull(&line)) {
+                printf("putting %d into queue.\n", item);
+                enQueue(item, &line);
+            } else {
+                puts("queue is full.\n");
+            }
+        } else {
+            if (queueIsEmpty(&line)) {
+                puts("nothing to delete!");
+            } else {
+                delQueue(&item, &line);
+                printf("removing %d from queue\n", item);
+            }
+        }
+        printf("%d itms in queue\n", queueCount(&line));
+        printf("type a to add.d to delete.q to quit:");
+    }
+    clearQueue(&line);
+
+    return EXIT_SUCCESS;
+
+}
+
+
+
+
+
+
